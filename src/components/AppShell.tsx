@@ -1,0 +1,130 @@
+import { Link, useRouterState } from "@tanstack/react-router";
+import {
+  Home,
+  FolderOpen,
+  Users,
+  Scale,
+  Wallet,
+  Building2,
+  ShieldCheck,
+  GitPullRequestArrow,
+  Settings2,
+  Search,
+  Menu,
+  X,
+} from "lucide-react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+
+const nav = [
+  { to: "/", label: "Dashboard", icon: Home, exact: true },
+  { to: "/documentos", label: "Todos os Documentos", icon: FolderOpen },
+  { to: "/categoria/pessoas-cultura", label: "Pessoas & Cultura", icon: Users },
+  { to: "/categoria/juridico", label: "Jurídico", icon: Scale, dim: true },
+  { to: "/categoria/financeiro", label: "Financeiro", icon: Wallet, dim: true },
+  { to: "/categoria/operacoes", label: "Operações", icon: Building2, dim: true },
+  { to: "/categoria/compliance", label: "Compliance", icon: ShieldCheck, dim: true },
+  { to: "/em-aprovacao", label: "Em Aprovação", icon: GitPullRequestArrow },
+  { to: "/admin", label: "Administração", icon: Settings2, dim: true },
+] as const;
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const [open, setOpen] = useState(false);
+
+  const isActive = (to: string, exact?: boolean) =>
+    exact ? pathname === to : pathname === to || pathname.startsWith(to + "/") || pathname === to;
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      {/* Top bar */}
+      <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-card/90 px-4 backdrop-blur md:px-6">
+        <button
+          className="md:hidden rounded p-1.5 text-muted-foreground hover:bg-muted"
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Menu"
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
+
+        <Link to="/" className="flex items-center gap-2.5">
+          <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-navy text-primary-foreground">
+            <span className="font-display text-sm font-bold">H</span>
+          </div>
+          <div className="flex flex-col leading-none">
+            <span className="font-display text-sm font-semibold tracking-tight">Hyndra Hub</span>
+            <span className="font-mono-caps text-[9px] text-muted-foreground">Repositório Institucional</span>
+          </div>
+        </Link>
+
+        <div className="ml-6 hidden flex-1 items-center md:flex">
+          <div className="relative w-full max-w-md">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            <input
+              placeholder="Buscar por código, título, área…"
+              className="w-full rounded-md border border-border bg-background py-1.5 pl-9 pr-3 text-sm placeholder:text-muted-foreground focus:border-blue focus:outline-none focus:ring-1 focus:ring-ring"
+            />
+          </div>
+        </div>
+
+        <div className="ml-auto flex items-center gap-3">
+          <span className="hidden text-xs text-muted-foreground md:block">Hyndra Participações</span>
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-xs font-medium text-secondary-foreground">
+            HP
+          </div>
+        </div>
+      </header>
+
+      <div className="flex">
+        {/* Sidebar */}
+        <aside
+          className={cn(
+            "fixed inset-y-14 left-0 z-20 w-64 shrink-0 overflow-y-auto border-r border-border bg-card transition-transform md:sticky md:top-14 md:h-[calc(100vh-3.5rem)] md:translate-x-0",
+            open ? "translate-x-0" : "-translate-x-full",
+          )}
+        >
+          <nav className="flex flex-col gap-0.5 p-3">
+            <div className="px-3 py-2 font-mono-caps text-muted-foreground">Navegação</div>
+            {nav.map((item) => {
+              const active = isActive(item.to, "exact" in item ? item.exact : false);
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
+                    active
+                      ? "bg-navy text-primary-foreground"
+                      : "text-foreground hover:bg-secondary",
+                    "dim" in item && item.dim && !active && "text-muted-foreground",
+                  )}
+                >
+                  <item.icon className={cn("h-4 w-4", active ? "text-primary-foreground" : "")} />
+                  <span className="flex-1 truncate">{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+
+          <div className="mx-3 mt-4 rounded-lg border border-border bg-amber-light/60 p-3">
+            <div className="font-mono-caps text-amber">Aviso</div>
+            <p className="mt-1 text-xs leading-relaxed text-foreground/80">
+              10 documentos de Pessoas & Cultura aguardam aprovação do CEO.
+            </p>
+            <Link to="/em-aprovacao" className="mt-2 inline-block text-xs font-medium text-navy hover:underline">
+              Ver fila de aprovação →
+            </Link>
+          </div>
+        </aside>
+
+        {/* Backdrop */}
+        {open && (
+          <div className="fixed inset-0 top-14 z-10 bg-foreground/20 md:hidden" onClick={() => setOpen(false)} />
+        )}
+
+        <main className="min-w-0 flex-1">{children}</main>
+      </div>
+    </div>
+  );
+}
