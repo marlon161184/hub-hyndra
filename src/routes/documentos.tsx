@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { PolicyCard } from "@/components/PolicyCard";
-import { documents, categories, type DocStatus } from "@/data/documents";
+import { documents, categories, type DocStatus, type DocType } from "@/data/documents";
 
 export const Route = createFileRoute("/documentos")({
   component: AllDocs,
@@ -16,16 +16,19 @@ export const Route = createFileRoute("/documentos")({
 });
 
 const statuses: DocStatus[] = ["Publicado", "Em Aprovação", "Em Revisão", "Arquivado"];
+const types: DocType[] = ["Política", "SOP", "Apresentação", "Fluxograma", "Formulário", "Documento"];
 
 function AllDocs() {
   const [q, setQ] = useState("");
   const [cat, setCat] = useState<string>("Todos");
   const [status, setStatus] = useState<string>("Todos");
+  const [type, setType] = useState<string>("Todos");
 
   const filtered = useMemo(() => {
     return documents.filter((d) => {
       if (cat !== "Todos" && d.category !== cat) return false;
       if (status !== "Todos" && d.status !== status) return false;
+      if (type !== "Todos" && d.type !== type) return false;
       if (q) {
         const t = q.toLowerCase();
         return (
@@ -36,7 +39,7 @@ function AllDocs() {
       }
       return true;
     });
-  }, [q, cat, status]);
+  }, [q, cat, status, type]);
 
   return (
     <AppShell>
@@ -76,6 +79,16 @@ function AllDocs() {
             <option>Todos</option>
             {statuses.map((s) => (
               <option key={s}>{s}</option>
+            ))}
+          </select>
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value)}
+            className="rounded-md border border-border bg-background px-3 py-2 text-sm focus:border-blue focus:outline-none"
+          >
+            <option>Todos</option>
+            {types.map((t) => (
+              <option key={t}>{t}</option>
             ))}
           </select>
         </div>
