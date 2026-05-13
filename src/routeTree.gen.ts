@@ -9,38 +9,108 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as EmAprovacaoRouteImport } from './routes/em-aprovacao'
+import { Route as DocumentosRouteImport } from './routes/documentos'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DocumentoCodeRouteImport } from './routes/documento.$code'
+import { Route as CategoriaSlugRouteImport } from './routes/categoria.$slug'
 
+const EmAprovacaoRoute = EmAprovacaoRouteImport.update({
+  id: '/em-aprovacao',
+  path: '/em-aprovacao',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DocumentosRoute = DocumentosRouteImport.update({
+  id: '/documentos',
+  path: '/documentos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DocumentoCodeRoute = DocumentoCodeRouteImport.update({
+  id: '/documento/$code',
+  path: '/documento/$code',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriaSlugRoute = CategoriaSlugRouteImport.update({
+  id: '/categoria/$slug',
+  path: '/categoria/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/documentos': typeof DocumentosRoute
+  '/em-aprovacao': typeof EmAprovacaoRoute
+  '/categoria/$slug': typeof CategoriaSlugRoute
+  '/documento/$code': typeof DocumentoCodeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/documentos': typeof DocumentosRoute
+  '/em-aprovacao': typeof EmAprovacaoRoute
+  '/categoria/$slug': typeof CategoriaSlugRoute
+  '/documento/$code': typeof DocumentoCodeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/documentos': typeof DocumentosRoute
+  '/em-aprovacao': typeof EmAprovacaoRoute
+  '/categoria/$slug': typeof CategoriaSlugRoute
+  '/documento/$code': typeof DocumentoCodeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/documentos'
+    | '/em-aprovacao'
+    | '/categoria/$slug'
+    | '/documento/$code'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/documentos'
+    | '/em-aprovacao'
+    | '/categoria/$slug'
+    | '/documento/$code'
+  id:
+    | '__root__'
+    | '/'
+    | '/documentos'
+    | '/em-aprovacao'
+    | '/categoria/$slug'
+    | '/documento/$code'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DocumentosRoute: typeof DocumentosRoute
+  EmAprovacaoRoute: typeof EmAprovacaoRoute
+  CategoriaSlugRoute: typeof CategoriaSlugRoute
+  DocumentoCodeRoute: typeof DocumentoCodeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/em-aprovacao': {
+      id: '/em-aprovacao'
+      path: '/em-aprovacao'
+      fullPath: '/em-aprovacao'
+      preLoaderRoute: typeof EmAprovacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/documentos': {
+      id: '/documentos'
+      path: '/documentos'
+      fullPath: '/documentos'
+      preLoaderRoute: typeof DocumentosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,12 +118,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/documento/$code': {
+      id: '/documento/$code'
+      path: '/documento/$code'
+      fullPath: '/documento/$code'
+      preLoaderRoute: typeof DocumentoCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categoria/$slug': {
+      id: '/categoria/$slug'
+      path: '/categoria/$slug'
+      fullPath: '/categoria/$slug'
+      preLoaderRoute: typeof CategoriaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DocumentosRoute: DocumentosRoute,
+  EmAprovacaoRoute: EmAprovacaoRoute,
+  CategoriaSlugRoute: CategoriaSlugRoute,
+  DocumentoCodeRoute: DocumentoCodeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
