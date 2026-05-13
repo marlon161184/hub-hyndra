@@ -16,15 +16,21 @@ import {
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const nav = [
+const mainNav = [
   { to: "/", label: "Dashboard", icon: Home, exact: true },
   { to: "/documentos", label: "Todos os Documentos", icon: FolderOpen },
-  { to: "/categoria/pessoas-cultura", label: "Pessoas & Cultura", icon: Users },
-  { to: "/categoria/juridico", label: "Jurídico", icon: Scale, dim: true },
-  { to: "/categoria/financeiro", label: "Financeiro", icon: Wallet, dim: true },
-  { to: "/categoria/operacoes", label: "Operações", icon: Building2, dim: true },
-  { to: "/categoria/compliance", label: "Compliance", icon: ShieldCheck, dim: true },
-  { to: "/em-aprovacao", label: "Em Aprovação", icon: GitPullRequestArrow },
+] as const;
+
+const categoryNav = [
+  { slug: "pessoas-cultura", label: "Pessoas & Cultura", icon: Users, dim: false },
+  { slug: "juridico", label: "Jurídico", icon: Scale, dim: true },
+  { slug: "financeiro", label: "Financeiro", icon: Wallet, dim: true },
+  { slug: "operacoes", label: "Operações", icon: Building2, dim: true },
+  { slug: "compliance", label: "Compliance", icon: ShieldCheck, dim: true },
+] as const;
+
+const tailNav = [
+  { to: "/em-aprovacao", label: "Em Aprovação", icon: GitPullRequestArrow, dim: false },
   { to: "/admin", label: "Administração", icon: Settings2, dim: true },
 ] as const;
 
