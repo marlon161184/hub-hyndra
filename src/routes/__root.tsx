@@ -80,6 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Hyndra Hub — Repositório Institucional" },
+      { name: "twitter:description", content: "Políticas, Procedimentos e Documentos Corporativos da Hyndra Participações." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d614caea-e601-42ed-944d-715ab6cb6c11/id-preview-050d1887--414b3e7b-a921-4ea4-9345-b9f4dd736577.lovable.app-1778693958725.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/d614caea-e601-42ed-944d-715ab6cb6c11/id-preview-050d1887--414b3e7b-a921-4ea4-9345-b9f4dd736577.lovable.app-1778693958725.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
