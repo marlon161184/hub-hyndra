@@ -53,9 +53,9 @@ function Dashboard() {
   const total = documents.length;
   const aprovacao = documents.filter((d) => d.status === "Em Aprovação").length;
   const publicados = documents.filter((d) => d.status === "Publicado").length;
-  const revisao = documents.filter((d) => d.status === "Em Revisão").length;
+  const ativas = categories.filter((c) => c.active).length;
 
-  const recent = [...documents].slice(0, 5);
+  const recent = [...documents].sort((a, b) => (a.status === "Publicado" ? -1 : 1)).slice(0, 6);
 
   return (
     <AppShell>
@@ -94,9 +94,9 @@ function Dashboard() {
         {/* Stats */}
         <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <Stat label="Documentos" value={total} hint="Total catalogado" icon={FileText} />
-          <Stat label="Em Aprovação" value={aprovacao} hint="Aguardando CEO" icon={GitPullRequestArrow} tone="amber" />
           <Stat label="Publicados" value={publicados} hint="Vigentes" icon={CheckCircle2} tone="success" />
-          <Stat label="Em Revisão" value={revisao} hint="Ciclo ativo" icon={RefreshCw} tone="blue" />
+          <Stat label="Em Aprovação" value={aprovacao} hint="Aguardando CEO" icon={GitPullRequestArrow} tone="amber" />
+          <Stat label="Categorias ativas" value={ativas} hint="P&C · Financeiro" icon={RefreshCw} tone="blue" />
         </section>
 
         {/* Recent */}

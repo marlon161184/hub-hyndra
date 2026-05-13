@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, FileText } from "lucide-react";
 import type { Document } from "@/data/documents";
 import { StatusBadge } from "./StatusBadge";
+import { TypeBadge } from "./TypeBadge";
 
 export function PolicyCard({ doc }: { doc: Document }) {
   return (
@@ -23,15 +24,13 @@ export function PolicyCard({ doc }: { doc: Document }) {
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
         <StatusBadge status={doc.status} />
-        <span className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs text-secondary-foreground">
-          {doc.type}
-        </span>
+        <TypeBadge type={doc.type} />
         <span className="text-xs text-muted-foreground">v{doc.version.split(" ")[0]}</span>
       </div>
 
-      <div className="mt-4 flex items-center justify-between border-t border-border pt-3 text-xs text-muted-foreground">
-        <span>{doc.responsible}</span>
-        <span>{doc.updatedAt}</span>
+      <div className="mt-4 flex items-center justify-between gap-3 border-t border-border pt-3 text-xs text-muted-foreground">
+        <span className="truncate">{doc.responsible}</span>
+        <span className="shrink-0">{doc.updatedAt}</span>
       </div>
     </Link>
   );

@@ -80,7 +80,7 @@ function CategoryPage() {
                   {pending} documentos aguardam aprovação do CEO
                 </div>
                 <div className="mt-4">
-                  <ApprovalTracker chain={docs[0].approvalChain} compact />
+                  <ApprovalTracker chain={docs.find((d) => d.status === "Em Aprovação")!.approvalChain} compact />
                 </div>
               </div>
             )}
