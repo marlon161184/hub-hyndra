@@ -3,7 +3,11 @@ import { ArrowLeft, Download, FileText, AlertTriangle, Sparkles } from "lucide-r
 import { AppShell } from "@/components/AppShell";
 import { ApprovalTracker } from "@/components/ApprovalTracker";
 import { StatusBadge } from "@/components/StatusBadge";
-import { getDocByCode, documents } from "@/data/documents";
+import { TypeBadge } from "@/components/TypeBadge";
+import { ApprovalMatrix } from "@/components/ApprovalMatrix";
+import { SlideViewer } from "@/components/SlideViewer";
+import { FlowchartViewer } from "@/components/FlowchartViewer";
+import { getDocByCode, documents, type DocBlock } from "@/data/documents";
 
 export const Route = createFileRoute("/documento/$code")({
   component: DocDetail,
@@ -54,12 +58,12 @@ function DocDetail() {
                   {doc.code}
                 </span>
                 <span className="font-mono-caps text-muted-foreground">{doc.category}</span>
-                <span className="font-mono-caps text-muted-foreground">· {doc.type}</span>
               </div>
               <h1 className="font-display mt-3 text-3xl leading-tight text-navy md:text-4xl">{doc.title}</h1>
               <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">{doc.summary}</p>
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <StatusBadge status={doc.status} />
+                <TypeBadge type={doc.type} />
                 <span className="rounded-full border border-border bg-secondary px-2.5 py-0.5 text-xs">{doc.version}</span>
               </div>
             </div>
@@ -75,20 +79,36 @@ function DocDetail() {
           </div>
 
           {/* Approval banner */}
-          <div className="mt-8 rounded-lg border border-amber/40 bg-amber-light/50 p-5">
-            <div className="flex items-center justify-between gap-4">
-              <div>
-                <div className="font-mono-caps text-amber">Em aprovação</div>
-                <div className="font-display mt-0.5 text-base text-foreground">Aguardando deliberação do CEO</div>
+          {doc.status === "Em Aprovação" ? (
+            <div className="mt-8 rounded-lg border border-amber/40 bg-amber-light/50 p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="font-mono-caps text-amber">Em aprovação</div>
+                  <div className="font-display mt-0.5 text-base text-foreground">Aguardando deliberação do CEO</div>
+                </div>
+                <div className="hidden text-right text-xs text-muted-foreground md:block">
+                  Próxima etapa: Conselho Deliberativo
+                </div>
               </div>
-              <div className="hidden text-right text-xs text-muted-foreground md:block">
-                Próxima etapa: Conselho Deliberativo
+              <div className="mt-4">
+                <ApprovalTracker chain={doc.approvalChain} />
               </div>
             </div>
-            <div className="mt-4">
-              <ApprovalTracker chain={doc.approvalChain} />
+          ) : (
+            <div className="mt-8 rounded-lg border border-success/30 bg-success-light/60 p-5">
+              <div className="flex items-center justify-between gap-4">
+                <div>
+                  <div className="font-mono-caps text-success">Documento publicado</div>
+                  <div className="font-display mt-0.5 text-base text-foreground">
+                    Vigente desde {doc.effectiveDate ?? doc.updatedAt}
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4">
+                <ApprovalTracker chain={doc.approvalChain} />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 
@@ -109,26 +129,19 @@ function DocDetail() {
 
         {/* Body */}
         <article className="min-w-0">
-          {doc.sections.map((s) => (
+          {doc.sections.map((s, idx) => (
             <section key={s.id} id={s.id} className="mb-10 scroll-mt-20">
-              <h2 className="font-display text-2xl text-navy">{s.title}</h2>
-              <div className="mt-3 space-y-3 text-[15px] leading-[1.75] text-foreground/90">
-                {s.body.split("\n\n").map((p, i) => (
-                  <p key={i}>{p}</p>
+              <div className="flex items-baseline gap-3">
+                <span className="font-display flex h-8 min-w-8 items-center justify-center rounded bg-navy px-2 text-sm text-primary-foreground">
+                  {idx + 1}
+                </span>
+                <h2 className="font-display text-2xl text-navy">{s.title.replace(/^\d+\.\s*/, "")}</h2>
+              </div>
+              <div className="mt-4 space-y-4">
+                {s.blocks.map((b, i) => (
+                  <BlockRenderer key={i} block={b} />
                 ))}
               </div>
-              {s.highlight && (
-                <div className="mt-5 flex gap-3 rounded-md border-l-4 border-blue bg-blue-light/60 p-4">
-                  <Sparkles className="h-4 w-4 shrink-0 text-blue" />
-                  <p className="text-sm leading-relaxed text-foreground">{s.highlight}</p>
-                </div>
-              )}
-              {s.warning && (
-                <div className="mt-5 flex gap-3 rounded-md border-l-4 border-amber bg-amber-light/70 p-4">
-                  <AlertTriangle className="h-4 w-4 shrink-0 text-amber" />
-                  <p className="text-sm leading-relaxed text-foreground">{s.warning}</p>
-                </div>
-              )}
             </section>
           ))}
         </article>
@@ -195,6 +208,71 @@ function DocDetail() {
       </div>
     </AppShell>
   );
+}
+
+function BlockRenderer({ block }: { block: DocBlock }) {
+  switch (block.kind) {
+    case "p":
+      return <p className="text-[15px] leading-[1.75] text-foreground/90">{block.text}</p>;
+    case "subheading":
+      return <h3 className="font-display mt-4 text-lg text-navy">{block.text}</h3>;
+    case "list":
+      if (block.ordered)
+        return (
+          <ol className="list-decimal space-y-1.5 pl-6 text-[15px] leading-[1.75] text-foreground/90">
+            {block.items.map((it, i) => <li key={i}>{it}</li>)}
+          </ol>
+        );
+      return (
+        <ul className="list-disc space-y-1.5 pl-6 text-[15px] leading-[1.75] text-foreground/90">
+          {block.items.map((it, i) => <li key={i}>{it}</li>)}
+        </ul>
+      );
+    case "table":
+      return (
+        <div className="overflow-hidden rounded-lg border border-border">
+          <table className="w-full text-left text-sm">
+            <thead className="bg-navy text-primary-foreground">
+              <tr>
+                {block.headers.map((h, i) => (
+                  <th key={i} className="px-4 py-2.5 font-medium">{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, i) => (
+                <tr key={i} className={i % 2 === 0 ? "bg-card" : "bg-secondary/30"}>
+                  {row.map((c, j) => (
+                    <td key={j} className="border-t border-border px-4 py-2.5 align-top text-foreground/90">{c}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {block.caption && <div className="border-t border-border bg-secondary/40 px-4 py-2 text-xs text-muted-foreground">{block.caption}</div>}
+        </div>
+      );
+    case "info":
+      return (
+        <div className="flex gap-3 rounded-md border-l-4 border-blue bg-blue-light/60 p-4">
+          <Sparkles className="h-4 w-4 shrink-0 text-blue" />
+          <p className="text-sm leading-relaxed text-foreground">{block.text}</p>
+        </div>
+      );
+    case "warning":
+      return (
+        <div className="flex gap-3 rounded-md border-l-4 border-amber bg-amber-light/70 p-4">
+          <AlertTriangle className="h-4 w-4 shrink-0 text-amber" />
+          <p className="text-sm leading-relaxed text-foreground">{block.text}</p>
+        </div>
+      );
+    case "matrix":
+      return <ApprovalMatrix />;
+    case "slides":
+      return <SlideViewer />;
+    case "flowchart":
+      return <FlowchartViewer />;
+  }
 }
 
 function Meta({ label, value }: { label: string; value: string }) {
