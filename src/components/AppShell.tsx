@@ -23,8 +23,8 @@ const mainNav = [
 
 const categoryNav = [
   { slug: "pessoas-cultura", label: "Pessoas & Cultura", icon: Users, dim: false },
+  { slug: "financeiro", label: "Financeiro", icon: Wallet, dim: false },
   { slug: "juridico", label: "Jurídico", icon: Scale, dim: true },
-  { slug: "financeiro", label: "Financeiro", icon: Wallet, dim: true },
   { slug: "operacoes", label: "Operações", icon: Building2, dim: true },
   { slug: "compliance", label: "Compliance", icon: ShieldCheck, dim: true },
 ] as const;
