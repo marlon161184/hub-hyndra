@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 
 const mainNav = [
   { to: "/", label: "Dashboard", icon: Home, exact: true },
-  { to: "/documentos", label: "Todos os Documentos", icon: FolderOpen },
+  { to: "/documentos", label: "Todos os Documentos", icon: FolderOpen, exact: false },
 ] as const;
 
 const categoryNav = [
