@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { AppShell } from "@/components/AppShell";
 import { PolicyCard } from "@/components/PolicyCard";
 import { ApprovalTracker } from "@/components/ApprovalTracker";
