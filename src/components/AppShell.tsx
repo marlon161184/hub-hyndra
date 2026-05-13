@@ -91,8 +91,52 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         >
           <nav className="flex flex-col gap-0.5 p-3">
             <div className="px-3 py-2 font-mono-caps text-muted-foreground">Navegação</div>
-            {nav.map((item) => {
-              const active = isActive(item.to, "exact" in item ? item.exact : false);
+            {mainNav.map((item) => {
+              const active = isActive(item.to, item.exact);
+              return (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
+                    active ? "bg-navy text-primary-foreground" : "text-foreground hover:bg-secondary",
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span className="flex-1 truncate">{item.label}</span>
+                </Link>
+              );
+            })}
+
+            <div className="mt-4 px-3 py-2 font-mono-caps text-muted-foreground">Categorias</div>
+            {categoryNav.map((item) => {
+              const path = `/categoria/${item.slug}`;
+              const active = isActive(path);
+              return (
+                <Link
+                  key={item.slug}
+                  to="/categoria/$slug"
+                  params={{ slug: item.slug }}
+                  onClick={() => setOpen(false)}
+                  className={cn(
+                    "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
+                    active
+                      ? "bg-navy text-primary-foreground"
+                      : item.dim
+                      ? "text-muted-foreground hover:bg-secondary"
+                      : "text-foreground hover:bg-secondary",
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span className="flex-1 truncate">{item.label}</span>
+                </Link>
+              );
+            })}
+
+            <div className="mt-4 px-3 py-2 font-mono-caps text-muted-foreground">Workflow</div>
+            {tailNav.map((item) => {
+              const active = isActive(item.to);
               return (
                 <Link
                   key={item.to}
@@ -102,16 +146,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
                     active
                       ? "bg-navy text-primary-foreground"
+                      : item.dim
+                      ? "text-muted-foreground hover:bg-secondary"
                       : "text-foreground hover:bg-secondary",
-                    "dim" in item && item.dim && !active && "text-muted-foreground",
                   )}
                 >
-                  <item.icon className={cn("h-4 w-4", active ? "text-primary-foreground" : "")} />
+                  <item.icon className="h-4 w-4" />
                   <span className="flex-1 truncate">{item.label}</span>
                 </Link>
               );
             })}
           </nav>
+
 
           <div className="mx-3 mt-4 rounded-lg border border-border bg-amber-light/60 p-3">
             <div className="font-mono-caps text-amber">Aviso</div>
