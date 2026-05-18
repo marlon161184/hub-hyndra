@@ -53,6 +53,10 @@
   --color-platinum: var(--platinum);
   --color-graphite: var(--graphite);
   --color-silver: var(--silver);
+
+  /* Verde Newe — gesto de chegada. Usar em réguas, barras verticais e labels de chegada. */
+  --color-verde-newe: var(--verde-newe);
+  --color-verde-newe-soft: var(--verde-newe-soft);
 }
 
 :root {
