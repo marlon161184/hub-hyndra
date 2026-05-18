@@ -100,7 +100,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   onClick={() => setOpen(false)}
                   className={cn(
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
-                    active ? "bg-navy text-primary-foreground" : "text-foreground hover:bg-secondary",
+                    active ? "bg-navy text-primary-foreground border-l-2 border-verde-newe" : "text-foreground hover:bg-secondary",
                   )}
                 >
                   <item.icon className="h-4 w-4" />
@@ -122,7 +122,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   className={cn(
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
                     active
-                      ? "bg-navy text-primary-foreground"
+                      ? "bg-navy text-primary-foreground border-l-2 border-verde-newe"
                       : item.dim
                       ? "text-muted-foreground hover:bg-secondary"
                       : "text-foreground hover:bg-secondary",
@@ -145,7 +145,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   className={cn(
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
                     active
-                      ? "bg-navy text-primary-foreground"
+                      ? "bg-navy text-primary-foreground border-l-2 border-verde-newe"
                       : item.dim
                       ? "text-muted-foreground hover:bg-secondary"
                       : "text-foreground hover:bg-secondary",
