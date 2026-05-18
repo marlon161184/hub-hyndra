@@ -53,6 +53,10 @@
   --color-platinum: var(--platinum);
   --color-graphite: var(--graphite);
   --color-silver: var(--silver);
+
+  /* Verde Newe — gesto de chegada. Usar em réguas, barras verticais e labels de chegada. */
+  --color-verde-newe: var(--verde-newe);
+  --color-verde-newe-soft: var(--verde-newe-soft);
 }
 
 :root {
@@ -71,6 +75,10 @@
   --branco: #FAFAFA;
   --platina: #E5E4E2;
 
+  /* Verde Newe — gesto, nunca preenchimento. Réguas, barras verticais, labels de chegada. */
+  --verde-newe: #9DCA79;
+  --verde-newe-soft: #EEF6E5;
+
   /* Legacy aliases remapped to Newe palette */
   --navy: var(--preto);
   --navy-deep: var(--grafite-profundo);
@@ -80,8 +88,9 @@
   /* Status — kept functional but desaturated to fit editorial system */
   --amber: oklch(0.62 0.09 70);
   --amber-light: oklch(0.96 0.02 80);
-  --success: oklch(0.50 0.06 160);
-  --success-light: oklch(0.95 0.02 160);
+  /* Sucesso = chegada institucional → Verde Newe */
+  --success: var(--verde-newe);
+  --success-light: var(--verde-newe-soft);
   --danger: oklch(0.52 0.16 27);
 
   --parchment: var(--branco-quente);

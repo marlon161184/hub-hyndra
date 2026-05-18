@@ -54,8 +54,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </button>
 
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex h-7 w-7 items-center justify-center border border-foreground/80 bg-foreground text-background">
-            <span className="font-mono text-[11px] font-bold tracking-tight">H</span>
+          <div className="flex items-center gap-2">
+            <span aria-hidden className="h-6 w-[2px] rounded-full bg-verde-newe" />
+            <div className="flex h-7 w-7 items-center justify-center border border-foreground/80 bg-foreground text-background">
+              <span className="font-mono text-[11px] font-bold tracking-tight">H</span>
+            </div>
           </div>
           <div className="flex flex-col leading-tight">
             <span className="font-display text-[15px] font-light tracking-tight">Hyndra Hub</span>
@@ -100,7 +103,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   onClick={() => setOpen(false)}
                   className={cn(
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
-                    active ? "bg-navy text-primary-foreground" : "text-foreground hover:bg-secondary",
+                    active ? "bg-navy text-primary-foreground border-l-2 border-verde-newe" : "text-foreground hover:bg-secondary",
                   )}
                 >
                   <item.icon className="h-4 w-4" />
@@ -122,7 +125,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   className={cn(
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
                     active
-                      ? "bg-navy text-primary-foreground"
+                      ? "bg-navy text-primary-foreground border-l-2 border-verde-newe"
                       : item.dim
                       ? "text-muted-foreground hover:bg-secondary"
                       : "text-foreground hover:bg-secondary",
@@ -145,7 +148,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                   className={cn(
                     "group flex items-center gap-2.5 rounded-md px-3 py-2 text-sm transition-colors",
                     active
-                      ? "bg-navy text-primary-foreground"
+                      ? "bg-navy text-primary-foreground border-l-2 border-verde-newe"
                       : item.dim
                       ? "text-muted-foreground hover:bg-secondary"
                       : "text-foreground hover:bg-secondary",

@@ -10,7 +10,7 @@ export function ApprovalTracker({ chain, compact = false }: { chain: ApprovalSta
     <div className="w-full">
       <div className="relative h-1 w-full overflow-hidden rounded-full bg-border">
         <div
-          className="absolute inset-y-0 left-0 bg-gradient-to-r from-navy to-blue transition-all"
+          className="absolute inset-y-0 left-0 bg-gradient-to-r from-foreground via-graphite to-verde-newe transition-all"
           style={{ width: `${progress + (100 / chain.length) * 0.5}%` }}
         />
       </div>
