@@ -53,13 +53,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-sm bg-navy text-primary-foreground">
-            <span className="font-display text-sm font-bold">H</span>
+        <Link to="/" className="flex items-center gap-3">
+          <div className="flex h-7 w-7 items-center justify-center border border-foreground/80 bg-foreground text-background">
+            <span className="font-mono text-[11px] font-bold tracking-tight">H</span>
           </div>
-          <div className="flex flex-col leading-none">
-            <span className="font-display text-sm font-semibold tracking-tight">Hyndra Hub</span>
-            <span className="font-mono-caps text-[9px] text-muted-foreground">Repositório Institucional</span>
+          <div className="flex flex-col leading-tight">
+            <span className="font-display text-[15px] font-light tracking-tight">Hyndra Hub</span>
+            <span className="font-mono-caps text-[8px] text-muted-foreground">Plataforma Institucional</span>
           </div>
         </Link>
 
