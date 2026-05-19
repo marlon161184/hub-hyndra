@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import hyndraLogo from "@/assets/hyndra-logo.png";
 import {
   Home,
   FolderOpen,
@@ -54,14 +55,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </button>
 
         <Link to="/" className="flex items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span aria-hidden className="h-6 w-[2px] rounded-full bg-verde-newe" />
-            <div className="flex h-7 w-7 items-center justify-center border border-foreground/80 bg-foreground text-background">
-              <span className="font-mono text-[11px] font-bold tracking-tight">H</span>
-            </div>
+          <div className="flex items-center gap-2.5">
+            <span aria-hidden className="h-7 w-[2px] rounded-full bg-verde-newe" />
+            <img src={hyndraLogo} alt="Hyndra Participações" className="h-6 w-auto dark:invert" />
           </div>
-          <div className="flex flex-col leading-tight">
-            <span className="font-display text-[15px] font-light tracking-tight">Hyndra Hub</span>
+          <div className="hidden sm:flex flex-col leading-tight border-l border-border pl-3">
+            <span className="font-display text-[13px] font-light tracking-tight">Hub</span>
             <span className="font-mono-caps text-[8px] text-muted-foreground">Plataforma Institucional</span>
           </div>
         </Link>
