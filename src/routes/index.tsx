@@ -3,6 +3,7 @@ import { FileText, GitPullRequestArrow, CheckCircle2, RefreshCw, ArrowRight } fr
 import { AppShell } from "@/components/AppShell";
 import { PolicyCard } from "@/components/PolicyCard";
 import { documents, categories } from "@/data/documents";
+import hyndraMark from "@/assets/hyndra-mark.png";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
