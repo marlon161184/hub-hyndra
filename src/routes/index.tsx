@@ -3,6 +3,7 @@ import { FileText, GitPullRequestArrow, CheckCircle2, RefreshCw, ArrowRight } fr
 import { AppShell } from "@/components/AppShell";
 import { PolicyCard } from "@/components/PolicyCard";
 import { documents, categories } from "@/data/documents";
+import hyndraMark from "@/assets/hyndra-mark.png";
 
 export const Route = createFileRoute("/")({
   component: Dashboard,
@@ -60,32 +61,90 @@ function Dashboard() {
   return (
     <AppShell>
       {/* Hero */}
-      <section className="relative border-b border-border bg-card">
+      <section className="relative overflow-hidden border-b border-border bg-gradient-to-br from-card via-background to-secondary/40">
         <div className="hub-grid-bg absolute inset-0" aria-hidden />
-        <div className="relative mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <div className="font-mono-caps text-blue">Hyndra Participações · 2026</div>
-          <h1 className="font-display mt-3 text-4xl leading-tight text-navy md:text-5xl">
-            Repositório Institucional<br />
-            <span className="text-foreground/70">de Políticas & Procedimentos</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            Fonte única e autoritativa de governança documental para a Hyndra e suas empresas participadas.
-            Consulte, acompanhe aprovações e mantenha-se alinhado à cultura institucional.
-          </p>
+        {/* Mark watermark */}
+        <img
+          src={hyndraMark}
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute -right-16 -top-10 hidden h-[460px] w-auto select-none opacity-[0.045] md:block dark:invert"
+        />
+        {/* Verde Newe régua vertical */}
+        <span aria-hidden className="absolute left-0 top-1/2 hidden h-40 w-[2px] -translate-y-1/2 bg-verde-newe md:block" />
 
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              to="/documentos"
-              className="inline-flex items-center gap-2 rounded-md bg-navy px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-navy-deep"
-            >
-              Explorar documentos <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              to="/em-aprovacao"
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-navy/40"
-            >
-              Fila de aprovação · {aprovacao}
-            </Link>
+        <div className="relative mx-auto grid max-w-6xl gap-10 px-6 py-16 md:grid-cols-12 md:py-24">
+          <div className="md:col-span-8">
+            <div className="flex items-center gap-3">
+              <span aria-hidden className="h-px w-10 bg-foreground/40" />
+              <span className="font-mono-caps text-muted-foreground">Hyndra Participações · 2026</span>
+            </div>
+
+            <h1 className="font-display mt-6 text-[clamp(2.75rem,7vw,5.5rem)] leading-[0.95] tracking-[-0.04em] text-foreground">
+              HUB <span className="italic font-light text-foreground/55">Hyndra</span>
+            </h1>
+
+            <div className="mt-5 flex items-start gap-3">
+              <span aria-hidden className="mt-2 h-6 w-[3px] shrink-0 bg-verde-newe" />
+              <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                Plataforma institucional de políticas, procedimentos e governança documental
+                do Grupo Hyndra e suas empresas participadas — uma fonte única, viva e auditável.
+              </p>
+            </div>
+
+            <div className="mt-9 flex flex-wrap gap-3">
+              <Link
+                to="/documentos"
+                className="group inline-flex items-center gap-2 rounded-md bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-all hover:bg-graphite"
+              >
+                Explorar documentos
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </Link>
+              <Link
+                to="/em-aprovacao"
+                className="inline-flex items-center gap-2 rounded-md border border-border bg-card/60 px-5 py-2.5 text-sm font-medium text-foreground backdrop-blur transition-colors hover:border-foreground/40"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-amber" />
+                Fila de aprovação · {aprovacao}
+              </Link>
+            </div>
+          </div>
+
+          {/* Meta side panel */}
+          <aside className="md:col-span-4 md:border-l md:border-border md:pl-8">
+            <div className="font-mono-caps text-muted-foreground">Edição</div>
+            <div className="font-display mt-2 text-3xl text-foreground">v.2026.1</div>
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+              Última publicação institucional · Mai/2026
+            </p>
+
+            <dl className="mt-8 space-y-4 border-t border-border pt-6">
+              <div className="flex items-baseline justify-between gap-4">
+                <dt className="font-mono-caps text-muted-foreground">Vigentes</dt>
+                <dd className="font-display text-2xl text-foreground">{publicados}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-4">
+                <dt className="font-mono-caps text-muted-foreground">Em curso</dt>
+                <dd className="font-display text-2xl text-foreground">{aprovacao}</dd>
+              </div>
+              <div className="flex items-baseline justify-between gap-4">
+                <dt className="font-mono-caps text-muted-foreground">Domínios</dt>
+                <dd className="font-display text-2xl text-foreground">{ativas}</dd>
+              </div>
+            </dl>
+          </aside>
+        </div>
+
+        {/* Bottom marquee strip */}
+        <div className="relative border-t border-border bg-card/60 backdrop-blur">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-3">
+            <span className="font-mono-caps text-muted-foreground">Hyndra Participações</span>
+            <span aria-hidden className="hidden h-3 w-px bg-border md:block" />
+            <span className="font-mono-caps text-muted-foreground">Newe Urbanismo Integrativo</span>
+            <span aria-hidden className="hidden h-3 w-px bg-border md:block" />
+            <span className="font-mono-caps text-muted-foreground">Governança · Cultura · Conformidade</span>
+            <span aria-hidden className="hidden h-3 w-px bg-border md:block" />
+            <span className="font-mono-caps text-verde-newe">● Publicação ativa</span>
           </div>
         </div>
       </section>
