@@ -84,7 +84,7 @@ function DocDetail() {
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <div className="font-mono-caps text-amber">Em aprovação</div>
-                  <div className="font-display mt-0.5 text-base text-foreground">Aguardando deliberação do CEO</div>
+                  <div className="font-display mt-0.5 text-base text-foreground">Aguardando deliberação do HEAD JURÍDICO E COMPLIANCE</div>
                 </div>
                 <div className="hidden text-right text-xs text-muted-foreground md:block">
                   Próxima etapa: Conselho Deliberativo

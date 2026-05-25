@@ -164,7 +164,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <div className="mx-3 mt-4 rounded-lg border border-border bg-amber-light/60 p-3">
             <div className="font-mono-caps text-amber">Aviso</div>
             <p className="mt-1 text-xs leading-relaxed text-foreground/80">
-              10 documentos de Pessoas & Cultura aguardam aprovação do CEO.
+              10 documentos de Pessoas & Cultura aguardam aprovação do HEAD JURÍDICO E COMPLIANCE.
             </p>
             <Link to="/em-aprovacao" className="mt-2 inline-block text-xs font-medium text-navy hover:underline">
               Ver fila de aprovação →

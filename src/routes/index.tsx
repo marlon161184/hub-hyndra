@@ -154,7 +154,7 @@ function Dashboard() {
         <section className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <Stat label="Documentos" value={total} hint="Total catalogado" icon={FileText} />
           <Stat label="Publicados" value={publicados} hint="Vigentes" icon={CheckCircle2} tone="success" />
-          <Stat label="Em Aprovação" value={aprovacao} hint="Aguardando CEO" icon={GitPullRequestArrow} tone="amber" />
+          <Stat label="Em Aprovação" value={aprovacao} hint="Aguardando HEAD JURÍDICO E COMPLIANCE" icon={GitPullRequestArrow} tone="amber" />
           <Stat label="Categorias ativas" value={ativas} hint="P&C · Financeiro" icon={RefreshCw} tone="blue" />
         </section>
 
