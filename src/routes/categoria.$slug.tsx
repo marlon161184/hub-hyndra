@@ -77,7 +77,7 @@ function CategoryPage() {
               <div className="mb-6 rounded-lg border border-amber/40 bg-amber-light/60 p-5">
                 <div className="font-mono-caps text-amber">Status do bloco</div>
                 <div className="font-display mt-1 text-lg text-foreground">
-                  {pending} documentos aguardam aprovação do CEO
+                  {pending} documentos aguardam aprovação do HEAD JURÍDICO E COMPLIANCE
                 </div>
                 <div className="mt-4">
                   <ApprovalTracker chain={docs.find((d) => d.status === "Em Aprovação")!.approvalChain} compact />

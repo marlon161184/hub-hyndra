@@ -25,7 +25,7 @@ function ApprovalQueue() {
           <div className="font-mono-caps text-amber">Workflow institucional</div>
           <h1 className="font-display mt-2 text-4xl text-navy">Fila de Aprovação</h1>
           <p className="mt-3 max-w-2xl text-sm text-muted-foreground">
-            {queue.length} documentos atualmente em fluxo de aprovação. Estágio atual: <strong className="text-foreground">CEO — Pendente</strong>.
+            {queue.length} documentos atualmente em fluxo de aprovação. Estágio atual: <strong className="text-foreground">HEAD JURÍDICO E COMPLIANCE — Pendente</strong>.
             Próximo passo: deliberação do Conselho.
           </p>
         </div>
@@ -71,7 +71,7 @@ function ApprovalQueue() {
                     </div>
                     <div className="col-span-2 flex items-center gap-1.5 text-xs text-amber md:justify-end">
                       <Clock className="h-3.5 w-3.5" />
-                      CEO — Pendente
+                      HEAD JURÍDICO E COMPLIANCE — Pendente
                     </div>
                   </Link>
                 </li>
