@@ -181,9 +181,9 @@ export const documents: Document[] = [
     status: "Publicado",
     version: "1.0 · Revisão 00",
     scope: "Newe Urbanismo e Participações S.A.",
-    responsible: "Gerente de Governança",
-    elaboration: "Gerente de Governança",
-    approvalAuthority: "CEO",
+    responsible: "Matteo Risolia — Head Financeiro",
+    elaboration: "Matteo Risolia — Head Financeiro",
+    approvalAuthority: "Giovanni Sampaio — Head Jurídico/Compliance e Governança",
     currentStage: "Vigente",
     emissionDate: "06 Mai 2026",
     effectiveDate: "07 Mai 2026",
@@ -953,8 +953,8 @@ export const documents: Document[] = [
 // ---------- Categories ----------
 export const categories: { name: DocCategory; description: string; executive: string; icon: string; active: boolean }[] = [
   { name: "Pessoas & Cultura", description: "Políticas que estruturam a relação entre Hyndra e seu capital humano.", executive: "Head de Pessoas & Cultura", icon: "Users", active: true },
-  { name: "Financeiro", description: "Governança financeira, controles internos e gestão de capital.", executive: "Gerente de Governança", icon: "Wallet", active: true },
-  { name: "Jurídico", description: "Diretrizes contratuais, regulatórias e de proteção institucional.", executive: "Head Jurídico", icon: "Scale", active: false },
+  { name: "Financeiro", description: "Governança financeira, controles internos e gestão de capital.", executive: "Matteo Risolia — Head Financeiro", icon: "Wallet", active: true },
+  { name: "Jurídico", description: "Diretrizes contratuais, regulatórias e de proteção institucional.", executive: "Giovanni Sampaio — Head Jurídico/Compliance e Governança", icon: "Scale", active: false },
   { name: "Operações", description: "Padrões operacionais e excelência de execução.", executive: "COO", icon: "Building2", active: false },
   { name: "Compliance", description: "Integridade, ética e conformidade institucional.", executive: "Compliance Officer", icon: "ShieldCheck", active: false },
   { name: "Governança", description: "Estrutura societária, conselhos e tomada de decisão.", executive: "Conselho Deliberativo", icon: "Landmark", active: false },
