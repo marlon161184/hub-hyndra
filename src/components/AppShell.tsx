@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   GitPullRequestArrow,
   Settings2,
+  LayoutList,
   Search,
   Menu,
   X,
@@ -20,6 +21,7 @@ import { cn } from "@/lib/utils";
 const mainNav = [
   { to: "/", label: "Dashboard", icon: Home, exact: true },
   { to: "/documentos", label: "Todos os Documentos", icon: FolderOpen, exact: false },
+  { to: "/backlog", label: "Backlog de Governança", icon: LayoutList, exact: false },
 ] as const;
 
 const categoryNav = [
