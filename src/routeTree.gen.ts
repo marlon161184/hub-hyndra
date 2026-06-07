@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as EmAprovacaoRouteImport } from './routes/em-aprovacao'
 import { Route as DocumentosRouteImport } from './routes/documentos'
+import { Route as BacklogRouteImport } from './routes/backlog'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocumentoCodeRouteImport } from './routes/documento.$code'
@@ -24,6 +25,11 @@ const EmAprovacaoRoute = EmAprovacaoRouteImport.update({
 const DocumentosRoute = DocumentosRouteImport.update({
   id: '/documentos',
   path: '/documentos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BacklogRoute = BacklogRouteImport.update({
+  id: '/backlog',
+  path: '/backlog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminRoute = AdminRouteImport.update({
@@ -50,6 +56,7 @@ const CategoriaSlugRoute = CategoriaSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/backlog': typeof BacklogRoute
   '/documentos': typeof DocumentosRoute
   '/em-aprovacao': typeof EmAprovacaoRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/backlog': typeof BacklogRoute
   '/documentos': typeof DocumentosRoute
   '/em-aprovacao': typeof EmAprovacaoRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/admin': typeof AdminRoute
+  '/backlog': typeof BacklogRoute
   '/documentos': typeof DocumentosRoute
   '/em-aprovacao': typeof EmAprovacaoRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/admin'
+    | '/backlog'
     | '/documentos'
     | '/em-aprovacao'
     | '/categoria/$slug'
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/admin'
+    | '/backlog'
     | '/documentos'
     | '/em-aprovacao'
     | '/categoria/$slug'
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/admin'
+    | '/backlog'
     | '/documentos'
     | '/em-aprovacao'
     | '/categoria/$slug'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminRoute: typeof AdminRoute
+  BacklogRoute: typeof BacklogRoute
   DocumentosRoute: typeof DocumentosRoute
   EmAprovacaoRoute: typeof EmAprovacaoRoute
   CategoriaSlugRoute: typeof CategoriaSlugRoute
@@ -122,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/documentos'
       fullPath: '/documentos'
       preLoaderRoute: typeof DocumentosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/backlog': {
+      id: '/backlog'
+      path: '/backlog'
+      fullPath: '/backlog'
+      preLoaderRoute: typeof BacklogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin': {
@@ -158,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
+  BacklogRoute: BacklogRoute,
   DocumentosRoute: DocumentosRoute,
   EmAprovacaoRoute: EmAprovacaoRoute,
   CategoriaSlugRoute: CategoriaSlugRoute,
