@@ -55,7 +55,7 @@ export const backlogAreas: BacklogArea[] = [
     id: "fin",
     name: "Financeiro / Controladoria",
     icon: "Wallet",
-    executive: "Gerente de Governança",
+    executive: "Matteo Risolia — Head Financeiro",
     items: [
       { code: "FIN-POL-01", title: "Política de Contas a Pagar", type: "Política", priority: "crítico", status: "publicado", hubDocCode: "PC-FIN-CAP-001" },
       { code: "FIN-POL-02", title: "Política de Contas a Receber e Cobrança", type: "Política", priority: "crítico", status: "a-criar" },
@@ -81,7 +81,7 @@ export const backlogAreas: BacklogArea[] = [
     id: "com",
     name: "Comercial e Marketing",
     icon: "TrendingUp",
-    executive: "Head Comercial",
+    executive: "Rafael Salomão — Diretor Comercial & Marketing",
     items: [
       { code: "COM-POL-01", title: "Política Comercial — condições, descontos e alçadas", type: "Política", priority: "crítico", status: "a-criar" },
       { code: "COM-POL-02", title: "Política de Relacionamento com Imobiliárias e Corretores", type: "Política", priority: "crítico", status: "a-criar" },
@@ -100,7 +100,7 @@ export const backlogAreas: BacklogArea[] = [
     id: "prod",
     name: "Produto",
     icon: "Building2",
-    executive: "Head de Produto",
+    executive: "Caetano Viana — Head Produto, Projeto e Aprovação",
     items: [
       { code: "PROD-POL-01", title: "Política de Desenvolvimento de Produto — critérios de viabilidade", type: "Política", priority: "importante", status: "a-criar" },
       { code: "PROD-POL-02", title: "Política de Gestão de Portfólio de Empreendimentos", type: "Política", priority: "importante", status: "a-criar" },
@@ -117,7 +117,7 @@ export const backlogAreas: BacklogArea[] = [
     id: "proj",
     name: "Projetos e Aprovação",
     icon: "Landmark",
-    executive: "Head de Projetos",
+    executive: "Caetano Viana — Head Produto, Projeto e Aprovação",
     items: [
       { code: "PROJ-POL-01", title: "Política de Gestão de Projetos e Empreendimentos", type: "Política", priority: "crítico", status: "a-criar" },
       { code: "PROJ-POL-02", title: "Política de Gestão de Riscos Regulatórios", type: "Política", priority: "importante", status: "a-criar" },
@@ -137,7 +137,7 @@ export const backlogAreas: BacklogArea[] = [
     id: "jur",
     name: "Jurídico / Compliance",
     icon: "Scale",
-    executive: "Head Jurídico",
+    executive: "Giovanni Sampaio — Head Jurídico/Compliance e Governança",
     items: [
       { code: "JUR-POL-01", title: "Política Antissuborno e Anticorrupção (Lei 12.846)", type: "Política", priority: "crítico", status: "a-criar" },
       { code: "JUR-POL-02", title: "Política de Proteção de Dados — LGPD", type: "Política", priority: "crítico", status: "a-criar" },
@@ -154,7 +154,7 @@ export const backlogAreas: BacklogArea[] = [
     id: "ti",
     name: "TI / Dados",
     icon: "ShieldCheck",
-    executive: "Head de TI",
+    executive: "Gustavo Garcia — DPO",
     items: [
       { code: "TI-POL-01", title: "Política de Segurança da Informação", type: "Política", priority: "crítico", status: "a-criar" },
       { code: "TI-POL-02", title: "Política de Uso Aceitável de Recursos de TI", type: "Política", priority: "importante", status: "a-criar" },
