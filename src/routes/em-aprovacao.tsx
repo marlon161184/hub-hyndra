@@ -1,9 +1,16 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { ApprovalTracker } from "@/components/ApprovalTracker";
 import { StatusBadge } from "@/components/StatusBadge";
 import { documents } from "@/data/documents";
-import { ArrowUpRight, Clock } from "lucide-react";
+import {
+  loadSubmissions,
+  getWorkflowPct,
+  getCurrentApprover,
+  type Submission,
+} from "@/data/submissions";
+import { ArrowUpRight, Clock, User } from "lucide-react";
 
 export const Route = createFileRoute("/em-aprovacao")({
   component: ApprovalQueue,
