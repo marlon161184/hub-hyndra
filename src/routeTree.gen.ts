@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SubmeterRouteImport } from './routes/submeter'
 import { Route as EmAprovacaoRouteImport } from './routes/em-aprovacao'
 import { Route as DocumentosRouteImport } from './routes/documentos'
 import { Route as BacklogRouteImport } from './routes/backlog'
@@ -17,6 +18,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocumentoCodeRouteImport } from './routes/documento.$code'
 import { Route as CategoriaSlugRouteImport } from './routes/categoria.$slug'
 
+const SubmeterRoute = SubmeterRouteImport.update({
+  id: '/submeter',
+  path: '/submeter',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmAprovacaoRoute = EmAprovacaoRouteImport.update({
   id: '/em-aprovacao',
   path: '/em-aprovacao',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/backlog': typeof BacklogRoute
   '/documentos': typeof DocumentosRoute
   '/em-aprovacao': typeof EmAprovacaoRoute
+  '/submeter': typeof SubmeterRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/documento/$code': typeof DocumentoCodeRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/backlog': typeof BacklogRoute
   '/documentos': typeof DocumentosRoute
   '/em-aprovacao': typeof EmAprovacaoRoute
+  '/submeter': typeof SubmeterRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/documento/$code': typeof DocumentoCodeRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/backlog': typeof BacklogRoute
   '/documentos': typeof DocumentosRoute
   '/em-aprovacao': typeof EmAprovacaoRoute
+  '/submeter': typeof SubmeterRoute
   '/categoria/$slug': typeof CategoriaSlugRoute
   '/documento/$code': typeof DocumentoCodeRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/backlog'
     | '/documentos'
     | '/em-aprovacao'
+    | '/submeter'
     | '/categoria/$slug'
     | '/documento/$code'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/backlog'
     | '/documentos'
     | '/em-aprovacao'
+    | '/submeter'
     | '/categoria/$slug'
     | '/documento/$code'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/backlog'
     | '/documentos'
     | '/em-aprovacao'
+    | '/submeter'
     | '/categoria/$slug'
     | '/documento/$code'
   fileRoutesById: FileRoutesById
@@ -117,12 +129,20 @@ export interface RootRouteChildren {
   BacklogRoute: typeof BacklogRoute
   DocumentosRoute: typeof DocumentosRoute
   EmAprovacaoRoute: typeof EmAprovacaoRoute
+  SubmeterRoute: typeof SubmeterRoute
   CategoriaSlugRoute: typeof CategoriaSlugRoute
   DocumentoCodeRoute: typeof DocumentoCodeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/submeter': {
+      id: '/submeter'
+      path: '/submeter'
+      fullPath: '/submeter'
+      preLoaderRoute: typeof SubmeterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/em-aprovacao': {
       id: '/em-aprovacao'
       path: '/em-aprovacao'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   BacklogRoute: BacklogRoute,
   DocumentosRoute: DocumentosRoute,
   EmAprovacaoRoute: EmAprovacaoRoute,
+  SubmeterRoute: SubmeterRoute,
   CategoriaSlugRoute: CategoriaSlugRoute,
   DocumentoCodeRoute: DocumentoCodeRoute,
 }
