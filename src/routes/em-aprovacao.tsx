@@ -24,6 +24,11 @@ export const Route = createFileRoute("/em-aprovacao")({
 
 function ApprovalQueue() {
   const queue = documents.filter((d) => d.status === "Em Aprovação");
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  useEffect(() => {
+    setSubmissions(loadSubmissions().filter((s) => s.status === "em-andamento"));
+  }, []);
+
 
   return (
     <AppShell>
