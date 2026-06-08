@@ -381,10 +381,10 @@ function SubmeterPage() {
           <div className="space-y-3">
             <button
               onClick={handleSubmit}
-              disabled={step === "submitting"}
+              disabled={(step as Step) === "submitting"}
               className="flex w-full items-center justify-center gap-2 rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background transition-colors hover:opacity-90 disabled:opacity-40"
             >
-              {step === "submitting" ? (
+              {(step as Step) === "submitting" ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
                   Submetendo…
