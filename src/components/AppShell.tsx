@@ -33,6 +33,7 @@ const categoryNav = [
 ] as const;
 
 const tailNav = [
+  { to: "/submeter", label: "Submeter Documento", icon: Upload, dim: false },
   { to: "/em-aprovacao", label: "Em Aprovação", icon: GitPullRequestArrow, dim: false },
   { to: "/admin", label: "Administração", icon: Settings2, dim: true },
 ] as const;
