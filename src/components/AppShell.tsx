@@ -11,6 +11,7 @@ import {
   GitPullRequestArrow,
   Settings2,
   LayoutList,
+  Upload,
   Search,
   Menu,
   X,
