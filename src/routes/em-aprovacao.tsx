@@ -166,6 +166,34 @@ function ApprovalQueue() {
                               Aguardando {approver.name} — {approver.role}
                             </div>
                           )}
+                          {approver && (
+                            <div className="mt-3 flex flex-wrap items-center gap-2">
+                              <Button
+                                size="sm"
+                                className="bg-success text-primary-foreground hover:bg-success/90"
+                                onClick={() => handleApprove(s)}
+                              >
+                                <Check className="h-3.5 w-3.5" />
+                                Aprovar etapa
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="border-destructive/40 text-destructive hover:bg-destructive/10"
+                                onClick={() => handleReject(s)}
+                              >
+                                <X className="h-3.5 w-3.5" />
+                                Rejeitar
+                              </Button>
+                            </div>
+                          )}
+                          {!approver && s.status === "aprovado" && (
+                            <div className="mt-2 flex items-center gap-1.5 text-xs text-success">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                              Aprovado integralmente
+                            </div>
+                          )}
+
                         </div>
                       </div>
                     </li>
