@@ -88,3 +88,36 @@ export function generateCode(type: SubmissionDocType, area: string): string {
   const p = type === "Política" ? "POL" : type === "Procedimento" ? "PROC" : "FLX";
   return `${area.slice(0, 3).toUpperCase()}-${p}-${String(Math.floor(Math.random() * 900) + 100)}`;
 }
+
+/** Aprova o estágio atual e avança para o próximo aprovador. */
+export function approveCurrentStep(s: Submission, notes?: string): Submission {
+  const workflow = s.workflow.map((w) => ({ ...w }));
+  const idx = workflow.findIndex((w) => w.status === "current");
+  if (idx === -1) return s;
+  workflow[idx].status = "done";
+  workflow[idx].approvedAt = new Date().toISOString();
+  if (notes) workflow[idx].notes = notes;
+  const next = workflow[idx + 1];
+  if (next) {
+    next.status = "current";
+    return { ...s, workflow, currentStep: idx + 1, status: "em-andamento" };
+  }
+  return { ...s, workflow, currentStep: idx, status: "aprovado" };
+}
+
+/** Rejeita o estágio atual e encerra o workflow. */
+export function rejectCurrentStep(s: Submission, notes?: string): Submission {
+  const workflow = s.workflow.map((w) => ({ ...w }));
+  const idx = workflow.findIndex((w) => w.status === "current");
+  if (idx === -1) return s;
+  workflow[idx].status = "rejected";
+  workflow[idx].approvedAt = new Date().toISOString();
+  if (notes) workflow[idx].notes = notes;
+  return { ...s, workflow, status: "rejeitado" };
+}
+
+/** Aplica uma atualização a uma submissão por id e persiste. */
+export function updateSubmission(updated: Submission) {
+  const list = loadSubmissions().map((s) => (s.id === updated.id ? updated : s));
+  saveSubmissions(list);
+}
