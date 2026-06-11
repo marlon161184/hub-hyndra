@@ -3,14 +3,19 @@ import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { ApprovalTracker } from "@/components/ApprovalTracker";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Button } from "@/components/ui/button";
 import { documents } from "@/data/documents";
 import {
   loadSubmissions,
   getWorkflowPct,
   getCurrentApprover,
+  approveCurrentStep,
+  rejectCurrentStep,
+  updateSubmission,
   type Submission,
 } from "@/data/submissions";
-import { ArrowUpRight, Clock, User } from "lucide-react";
+import { ArrowUpRight, Clock, User, Check, X, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/em-aprovacao")({
   component: ApprovalQueue,
@@ -28,6 +33,26 @@ function ApprovalQueue() {
   useEffect(() => {
     setSubmissions(loadSubmissions().filter((s) => s.status === "em-andamento"));
   }, []);
+
+  function handleApprove(s: Submission) {
+    const updated = approveCurrentStep(s);
+    updateSubmission(updated);
+    setSubmissions(loadSubmissions().filter((x) => x.status === "em-andamento"));
+    if (updated.status === "aprovado") {
+      toast.success(`${updated.title} aprovado integralmente`);
+    } else {
+      const next = getCurrentApprover(updated);
+      toast.success(`Aprovado. Encaminhado para ${next?.name ?? "próximo aprovador"}`);
+    }
+  }
+
+  function handleReject(s: Submission) {
+    const updated = rejectCurrentStep(s);
+    updateSubmission(updated);
+    setSubmissions(loadSubmissions().filter((x) => x.status === "em-andamento"));
+    toast.error(`${updated.title} rejeitado`);
+  }
+
 
 
   return (
